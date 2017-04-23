@@ -1,0 +1,31 @@
+﻿<script>
+//  var socket = io();
+$(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text('me: '+msg));
+    });
+    socket.on('bot message', function(msg){
+      $('#messages').append($('<li>').text('HelperBot: '+msg));
+    });
+  });
+</script>
+<div>
+    <h2>About Us</h2>
+    <h3>Message</h3>
+    <p>Use this area to provide additional information.</p>
+</div>
+
+
+    <div>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" ng-model="message" autocomplete="off" />
+      <button ng-click="send()">Send</button>
+    </form>
+    </div>
